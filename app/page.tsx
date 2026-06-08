@@ -33,7 +33,11 @@ export default function Home() {
                     </div>
                     <div className="flex flex-col gap-y-8 pr-18">
                         <div className="font-gothic text-nowrap">
-                            <p className="text-[68px]/[60px]">2026 SUMMER</p>
+                            {/* <p className="text-[68px]/[60px]">2026 SUMMER</p>
+                            <p className="text-6xl/[60px]">NEW ITEM IN</p>
+                            <p className="text-5xl">Facial Serum for</p>
+                            <p className="text-5xl">Every Skin Type</p> */}
+                            <p className="text-[80px]/[68px]">2026 S/S</p>
                             <p className="text-6xl/[60px]">NEW ITEM IN</p>
                             <p className="text-5xl">Facial Serum for</p>
                             <p className="text-5xl">Every Skin Type</p>
