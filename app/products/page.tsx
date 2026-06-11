@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { ProductCard } from "../components/cards/ProductCard";
+import { ProductCard } from "../components/ProductCard";
 import { Container } from "../components/Container";
 import { Header } from "../components/Header";
 import { PageHeader } from "../components/PageHeader";
-import { ProductDetailModal } from "../components/modals/ProductDetailModal";
+import { ProductDetailModal } from "../components/ProductDetailModal";
 
 export default function Products() {
     const [openDetailModal, setOpenDetailModal] = useState<boolean>(false);
@@ -15,42 +15,43 @@ export default function Products() {
     const products = [
         {
             name: "cream1cream1",
-            price: "¥5,500",
-            src: "/pro-cream1.png",
+            price: 5500,
+            imageUrl: "/pro-cream1.png",
             isInFav: false,
         },
         {
             name: "toner2",
-            price: "¥5,500",
-            src: "/pro-toner2.png",
+            price: 5500,
+            imageUrl: "/pro-toner2.png",
             isInFav: false,
         },
         {
             name: "cleanser2",
-            price: "¥5,500",
-            src: "/pro-cleanser2.png",
+            price: 5500,
+            imageUrl: "/pro-cleanser2.png",
             isInFav: false,
         },
         {
             name: "serum1",
-            price: "¥5,500",
-            src: "/pro-serum1.png",
+            price: 5500,
+            imageUrl: "/pro-serum1.png",
             isInFav: false,
         },
         {
             name: "serum2",
-            price: "¥5,500",
-            src: "/pro-serum2.png",
+            price: 5500,
+            imageUrl: "/pro-serum2.png",
             isInFav: false,
         },
     ];
 
     const product = {
         category: "cleaser",
-        name: "cleanser2",
-        price: "¥5,500",
+        name: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        price: 5500,
         description:
-            "A lightweight, intense moisturizer that deeply hydrates, refines skin texture, and leaves a clean, velvety matte finish.",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        // "A lightweight, intense moisturizer that deeply hydrates, refines skin texture, and leaves a clean, velvety matte finish.",
         imageUrl: "/pro-cleanser2.png",
     };
 
@@ -77,7 +78,7 @@ export default function Products() {
                             key={product.name}
                             name={product.name}
                             price={product.price}
-                            src={product.src}
+                            imageUrl={product.imageUrl}
                             isInFav={product.isInFav}
                             priority={index < 4}
                             toggleFav={toggleFav}
@@ -88,10 +89,7 @@ export default function Products() {
             </Container>
 
             {openDetailModal && (
-                <ProductDetailModal
-                    productDetail={product}
-                    closeModal={closeModal}
-                />
+                <ProductDetailModal product={product} closeModal={closeModal} />
             )}
         </div>
     );

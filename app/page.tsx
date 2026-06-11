@@ -1,15 +1,15 @@
 import Image from "next/image";
 import { Container } from "./components/Container";
 import { Header } from "./components/Header";
-import { LargeButton } from "./components/buttons/LargeButton";
-import { CategoryCard } from "./components/cards/CategoryCard";
+import { LargeButton } from "./components/LargeButton";
+import { CategoryCard } from "./components/CategoryCard";
 
 export default function Home() {
     const categories = [
-        { name: "CLEANSER", src: "/cat-cleanser.png" },
-        { name: "TONER", src: "/cat-toner.png" },
-        { name: "SERUM", src: "/cat-serum.png" },
-        { name: "CREAM", src: "/cat-cream.png" },
+        { category: "CLEANSER", imageUrl: "/cat-cleanser.png" },
+        { category: "TONER", imageUrl: "/cat-toner.png" },
+        { category: "SERUM", imageUrl: "/cat-serum.png" },
+        { category: "CREAM", imageUrl: "/cat-cream.png" },
     ];
 
     return (
@@ -65,9 +65,9 @@ export default function Home() {
                     <div className="flex justify-center gap-x-4">
                         {categories.map((category) => (
                             <CategoryCard
-                                key={category.name}
-                                name={category.name}
-                                src={category.src}
+                                key={category.category}
+                                category={category.category}
+                                imageUrl={category.imageUrl}
                             />
                         ))}
                     </div>

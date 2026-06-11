@@ -1,11 +1,12 @@
 import Image from "next/image";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
+import { formattedPrice } from "@/app/common/utils";
 
 type Props = {
-    src: string;
     name: string;
-    price: string;
+    price: number;
+    imageUrl: string;
     isInFav: boolean;
     priority?: boolean;
     toggleFav: () => void;
@@ -13,33 +14,40 @@ type Props = {
 };
 
 export const ProductCard = ({
-    src,
     name,
     price,
+    imageUrl,
     isInFav,
     priority = false,
     toggleFav,
     openModal,
 }: Props) => {
     return (
-        <div className="flex flex-col items-center w-full min-w-[220px] max-w-[270px] h-[340px] bg-white px-5 pt-4 pb-7 rounded-lg">
+        <div
+            onClick={openModal}
+            className="flex flex-col items-center w-full min-w-[220px] max-w-[270px] h-[340px] bg-white px-5 pt-4 pb-7 rounded-lg cursor-pointer hover:bg-[#F0FEFF] transition-colors"
+        >
             <div className="flex flex-row w-full justify-end">
-                <button className="group cursor-pointer" onClick={toggleFav}>
+                <button
+                    className="group cursor-pointer"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        toggleFav();
+                    }}
+                >
                     <HeartOutline className="w-6 h-6 stroke-1 fill-transparent group-hover:fill-black transition-all" />
                 </button>
             </div>
-            <button onClick={openModal}>
-                <Image
-                    src={src}
-                    alt="product image"
-                    width={270}
-                    height={240}
-                    priority={priority}
-                />
-            </button>
+            <Image
+                src={imageUrl}
+                alt="product image"
+                width={270}
+                height={240}
+                priority={priority}
+            />
             <div className="flex flex-col justify-end gap-y-1 px-4 w-full h-full">
                 <p className="font-medium">{name}</p>
-                <p className="text-sm">{price}</p>
+                <p className="text-sm">{formattedPrice(price)}</p>
             </div>
         </div>
     );
