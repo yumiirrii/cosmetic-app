@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
-import { formattedPrice } from "@/app/common/utils";
+import { checkValidImageUrl, formattedPrice } from "@/app/common/utils";
 
 type Props = {
     name: string;
@@ -22,6 +22,8 @@ export const ProductCard = ({
     toggleFav,
     openModal,
 }: Props) => {
+    const displayImageUrl = checkValidImageUrl(imageUrl);
+
     return (
         <div
             onClick={openModal}
@@ -39,7 +41,7 @@ export const ProductCard = ({
                 </button>
             </div>
             <Image
-                src={imageUrl}
+                src={displayImageUrl}
                 alt="product image"
                 width={270}
                 height={240}

@@ -1,15 +1,9 @@
 import Image from "next/image";
 import { Button } from "./Button";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { formattedPrice } from "@/app/common/utils";
-
-type Product = {
-    category: string;
-    name: string;
-    price: number;
-    description: string;
-    imageUrl: string;
-};
+import { checkValidImageUrl, formattedPrice } from "@/app/common/utils";
+import { Product } from "@prisma/client";
+import Link from "next/link";
 
 type Props = {
     product: Product;
@@ -17,6 +11,8 @@ type Props = {
 };
 
 export const ProductDetailModal = ({ product, closeModal }: Props) => {
+    const displayImageUrl = checkValidImageUrl(product.imageUrl);
+
     return (
         <div className="fixed inset-0 z-50 flex justify-center items-center bg-black/70">
             <div className="relative w-fit max-w-4xl h-fit max-h-[85vh] bg-black shadow-md flex items-center rounded-lg">
@@ -31,7 +27,7 @@ export const ProductDetailModal = ({ product, closeModal }: Props) => {
                 {/* 商品画像 */}
                 <div className="shrink-0">
                     <Image
-                        src={product.imageUrl}
+                        src={displayImageUrl}
                         alt="product image"
                         width={360}
                         height={320}
@@ -61,11 +57,9 @@ export const ProductDetailModal = ({ product, closeModal }: Props) => {
                             showHeart
                             onClick={closeModal}
                         />
-                        <Button
-                            label="Edit Product"
-                            state="secondary"
-                            onClick={closeModal}
-                        />
+                        <Link href={`/post/${product.id}/edit`}>
+                            <Button label="Edit Product" state="secondary" />
+                        </Link>
                     </div>
                 </div>
             </div>

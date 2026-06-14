@@ -1,70 +1,82 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ProductCard } from "../components/ProductCard";
 import { Container } from "../components/Container";
 import { Header } from "../components/Header";
 import { PageHeader } from "../components/PageHeader";
 import { ProductDetailModal } from "../components/ProductDetailModal";
+import { Product } from "@prisma/client";
+import { fetchProductById, fetchProducts } from "../actions/product";
+import { ProductListItem } from "../schemas/product";
 
 export default function Products() {
-    const [openDetailModal, setOpenDetailModal] = useState<boolean>(false);
+    const [products, setProducts] = useState<ProductListItem[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    // 詳細モーダル
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [product, setProduct] = useState<Product>();
 
     const categories = ["All", "New", "Cleanser", "Toner", "Serum", "Cream"];
 
-    const products = [
-        {
-            name: "cream1cream1",
-            price: 5500,
-            imageUrl: "/pro-cream1.png",
-            isInFav: false,
-        },
-        {
-            name: "toner2",
-            price: 5500,
-            imageUrl: "/pro-toner2.png",
-            isInFav: false,
-        },
-        {
-            name: "cleanser2",
-            price: 5500,
-            imageUrl: "/pro-cleanser2.png",
-            isInFav: false,
-        },
-        {
-            name: "serum1",
-            price: 5500,
-            imageUrl: "/pro-serum1.png",
-            isInFav: false,
-        },
-        {
-            name: "serum2",
-            price: 5500,
-            imageUrl: "/pro-serum2.png",
-            isInFav: false,
-        },
-    ];
+    useEffect(() => {
+        const loadProducts = async () => {
+            try {
+                setIsLoading(true);
 
-    const product = {
-        category: "cleaser",
-        name: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        price: 5500,
-        description:
-            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        // "A lightweight, intense moisturizer that deeply hydrates, refines skin texture, and leaves a clean, velvety matte finish.",
-        imageUrl: "/pro-cleanser2.png",
-    };
+                // 一覧取得
+                const result = await fetchProducts();
+                if (!result.success || !result.data) {
+                    console.error("Fetch list error.");
+                    return;
+                }
+
+                // ローカルストレージからお気に入りIDを取得
+                const favIds: string[] = JSON.parse(
+                    localStorage.getItem("fav_products") || "[]",
+                );
+
+                // マッピングして state に保存
+                const displayProducts: ProductListItem[] = result.data.map(
+                    (dbProduct) => ({
+                        ...dbProduct,
+                        isInFav: favIds.includes(dbProduct.id),
+                    }),
+                );
+
+                setProducts(displayProducts);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        loadProducts();
+    }, []);
 
     const toggleFav = () => {
         return;
     };
 
-    const openModal = () => {
-        setOpenDetailModal(true);
+    const openModal = async (id: string) => {
+        try {
+            const result = await fetchProductById(id);
+            if (!result.success || !result.data) {
+                console.error("Fetch data error.");
+                return;
+            }
+
+            setProduct(result.data);
+        } catch (error) {
+            console.error(error);
+        }
+
+        setIsOpen(true);
     };
 
     const closeModal = () => {
-        setOpenDetailModal(false);
+        setIsOpen(false);
     };
 
     return (
@@ -75,20 +87,22 @@ export default function Products() {
                 <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,270px))] gap-4 w-full">
                     {products.map((product, index) => (
                         <ProductCard
-                            key={product.name}
+                            key={product.id}
                             name={product.name}
                             price={product.price}
                             imageUrl={product.imageUrl}
                             isInFav={product.isInFav}
                             priority={index < 4}
                             toggleFav={toggleFav}
-                            openModal={openModal}
+                            openModal={() => {
+                                openModal(product.id);
+                            }}
                         />
                     ))}
                 </div>
             </Container>
 
-            {openDetailModal && (
+            {isOpen && product && (
                 <ProductDetailModal product={product} closeModal={closeModal} />
             )}
         </div>

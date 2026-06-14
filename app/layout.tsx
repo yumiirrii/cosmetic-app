@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Special_Gothic_Expanded_One, TASA_Orbiter } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 const specialGothicExpandedOne = Special_Gothic_Expanded_One({
     variable: "--font-special-gothic-expanded-one",
@@ -32,6 +33,7 @@ export default function RootLayout({
         >
             <body className="font-sans min-h-screen bg-background text-foreground antialiased">
                 <main>{children}</main>
+                <Toaster richColors position="top-right" />
             </body>
         </html>
     );

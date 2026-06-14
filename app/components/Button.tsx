@@ -7,9 +7,17 @@ type Props = {
     showHeart?: boolean;
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
     type?: "button" | "submit" | "reset";
+    disabled?: boolean;
 };
 
-export const Button = ({ label, state, showHeart, onClick, type }: Props) => {
+export const Button = ({
+    label,
+    state,
+    showHeart,
+    onClick,
+    type,
+    disabled,
+}: Props) => {
     const styles = {
         primary: "bg-[#88F5FA] hover:bg-[#B3FCFF]",
         secondary:
@@ -20,6 +28,7 @@ export const Button = ({ label, state, showHeart, onClick, type }: Props) => {
         <button
             type={type}
             onClick={onClick}
+            disabled={disabled}
             className={`w-fit px-6 py-3 rounded-4xl ${styles[state]} flex items-center gap-x-1 cursor-pointer transition-colors`}
         >
             {showHeart && <HeartOutline className="w-4 h-4 stroke-1" />}

@@ -2,36 +2,39 @@
 
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ProductInput, productSchema } from "../../schemas/product";
-import { ProductForm } from "../ProductForm";
+import {
+    UpdateProductInput,
+    updateProductSchema,
+} from "../../../schemas/product";
 import { Container } from "@/app/components/Container";
 import { PageHeader } from "@/app/components/PageHeader";
 import { Button } from "@/app/components/Button";
+import { ProductForm } from "../../ProductForm";
 import { Header } from "@/app/components/Header";
-import { useState } from "react";
-import { createProduct } from "@/app/actions/product";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { updateProduct } from "@/app/actions/product";
+import { Product } from "@prisma/client";
+import { toast } from "sonner";
 
-export default function CreatePage() {
+type Props = {
+    id: string;
+    initialData: Product;
+};
+
+export const EditFormClient = ({ id, initialData }: Props) => {
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const [submitMessage, setSubmitMessage] = useState<string>("");
 
     const methods = useForm({
-        resolver: zodResolver(productSchema),
-        defaultValues: {
-            category: "",
-            isNew: false,
-            name: "",
-            price: "",
-            description: "",
-            imageUrl: "",
-        },
+        resolver: zodResolver(updateProductSchema),
+        defaultValues: initialData,
     });
     const { handleSubmit, reset, setError } = methods;
 
-    const onSubmit = async (data: ProductInput) => {
+    /** [Update Product]ボタン押下時処理 */
+    const onSubmit = async (data: UpdateProductInput) => {
         setIsSubmitting(true);
         setSubmitMessage("");
 
@@ -42,18 +45,18 @@ export default function CreatePage() {
             formData.append(key, safeValue);
         });
 
-        const result = await createProduct(formData);
+        const result = await updateProduct(id, formData);
 
         setIsSubmitting(false);
 
         if (result.success) {
-            toast.success("Successfully created!");
+            toast.success("Successfully updated!");
             router.push("/products");
         } else if (result.errors) {
             Object.entries(result.errors).forEach(([key, value]) => {
                 const messages = value as string[] | undefined;
                 if (Array.isArray(messages) && messages[0]) {
-                    setError(key as keyof ProductInput, {
+                    setError(key as keyof UpdateProductInput, {
                         type: "server",
                         message: messages[0],
                     });
@@ -86,11 +89,12 @@ export default function CreatePage() {
                                     />
                                     <Button
                                         type="submit"
-                                        label="Add Product"
+                                        label="Update Product"
                                         state="primary"
                                         disabled={isSubmitting}
                                     />
                                 </div>
+                                <Button label="Delete Product" state="delete" />
                             </div>
                             {submitMessage && (
                                 <p className="text-sm text-red-600">
@@ -103,4 +107,4 @@ export default function CreatePage() {
             </div>
         </FormProvider>
     );
-}
+};

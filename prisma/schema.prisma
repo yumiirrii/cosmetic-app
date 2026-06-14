@@ -13,10 +13,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Category {
+  cleanser
+  toner
+  serum
+  cream
+}
+
 // Productテーブル
 model Product {
-  id          Int      @id @default(autoincrement()) // ID
-  category    String                                 // カテゴリ
+  // id          Int      @id @default(autoincrement()) // ID
+  // category    String                                 // カテゴリ
+  id          String @id @default(cuid())            // ID
+  category    Category                               // カテゴリ
   isNew       Boolean @default(false)                // 新作フラグ
   name        String                                 // 商品名
   price       Int                                    // 価格
