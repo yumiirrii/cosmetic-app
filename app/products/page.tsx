@@ -9,23 +9,28 @@ import { ProductDetailModal } from "../components/ProductDetailModal";
 import { Product } from "@prisma/client";
 import { fetchProductById, fetchProducts } from "../actions/product";
 import { ProductListItem } from "../schemas/product";
+import { useSearchParams } from "next/navigation";
 
 export default function Products() {
+    const params = useSearchParams();
+    const currentFilter = params.get("filter") || "all";
+    const productId = params.get("productId");
     const [products, setProducts] = useState<ProductListItem[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     // 詳細モーダル
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [product, setProduct] = useState<Product>();
 
-    const categories = ["All", "New", "Cleanser", "Toner", "Serum", "Cream"];
-
     useEffect(() => {
         const loadProducts = async () => {
             try {
                 setIsLoading(true);
 
-                // 一覧取得
-                const result = await fetchProducts();
+                // 一覧取得処理
+                const result = await fetchProducts({
+                    filter: currentFilter,
+                });
+
                 if (!result.success || !result.data) {
                     console.error("Fetch list error.");
                     return;
@@ -45,6 +50,11 @@ export default function Products() {
                 );
 
                 setProducts(displayProducts);
+
+                // productIdがある場合、商品詳細モーダルを開く
+                if (productId) {
+                    openModal(productId);
+                }
             } catch (error) {
                 console.error(error);
             } finally {
@@ -52,13 +62,15 @@ export default function Products() {
             }
         };
 
+        // 商品一覧を読み込む
         loadProducts();
-    }, []);
+    }, [currentFilter]);
 
     const toggleFav = () => {
         return;
     };
 
+    /** 商品詳細モーダルオープン処理　*/
     const openModal = async (id: string) => {
         try {
             const result = await fetchProductById(id);
@@ -75,6 +87,7 @@ export default function Products() {
         setIsOpen(true);
     };
 
+    /** 商品詳細モーダルクローズ処理 */
     const closeModal = () => {
         setIsOpen(false);
     };
@@ -83,7 +96,7 @@ export default function Products() {
         <div className="relative flex flex-col min-h-screen bg-[#F7F9F8]">
             <Header />
             <Container>
-                <PageHeader title="Products" categories={categories} />
+                <PageHeader title="Products" hasFilter />
                 <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,270px))] gap-4 w-full">
                     {products.map((product, index) => (
                         <ProductCard

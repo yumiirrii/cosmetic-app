@@ -3,15 +3,10 @@ import { Container } from "./components/Container";
 import { Header } from "./components/Header";
 import { LargeButton } from "./components/LargeButton";
 import { CategoryCard } from "./components/CategoryCard";
+import { CATEGORY_LINKS } from "./common/consts";
+import Link from "next/link";
 
 export default function Home() {
-    const categories = [
-        { category: "CLEANSER", imageUrl: "/cat-cleanser.png" },
-        { category: "TONER", imageUrl: "/cat-toner.png" },
-        { category: "SERUM", imageUrl: "/cat-serum.png" },
-        { category: "CREAM", imageUrl: "/cat-cream.png" },
-    ];
-
     return (
         <div
             className="min-h-screen overflow-x-auto bg-cover bg-center"
@@ -21,7 +16,7 @@ export default function Home() {
                 <Header />
 
                 {/* Hero */}
-                <div className="flex items-center pt-10">
+                <div className="flex items-center">
                     <div className="flex-1 min-w-sm">
                         <Image
                             src="/hero-product.png"
@@ -33,24 +28,24 @@ export default function Home() {
                     </div>
                     <div className="flex flex-col gap-y-8 pr-18">
                         <div className="font-gothic text-nowrap">
-                            {/* <p className="text-[68px]/[60px]">2026 SUMMER</p>
-                            <p className="text-6xl/[60px]">NEW ITEM IN</p>
-                            <p className="text-5xl">Facial Serum for</p>
-                            <p className="text-5xl">Every Skin Type</p> */}
                             <p className="text-[80px]/[68px]">2026 S/S</p>
                             <p className="text-6xl/[60px]">NEW ITEM IN</p>
                             <p className="text-5xl">Facial Serum for</p>
                             <p className="text-5xl">Every Skin Type</p>
                         </div>
                         <div className="flex justify-end gap-x-3">
-                            <LargeButton
-                                label="Go to Product Detail"
-                                state="primary"
-                            />
-                            <LargeButton
-                                label="See All New Products"
-                                state="secondary"
-                            />
+                            <Link href="/products?filter=new&productId=cmqg0mose0000tr3m7chk8ok0">
+                                <LargeButton
+                                    label="Go to Product Detail"
+                                    state="primary"
+                                />
+                            </Link>
+                            <Link href="/products?filter=new">
+                                <LargeButton
+                                    label="See All New Products"
+                                    state="secondary"
+                                />
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -61,18 +56,29 @@ export default function Home() {
                 </div>
             </div>
             <Container>
-                <div className="flex flex-col pt-8 gap-y-5">
-                    <div className="flex justify-center gap-x-4">
-                        {categories.map((category) => (
-                            <CategoryCard
-                                key={category.category}
-                                category={category.category}
-                                imageUrl={category.imageUrl}
-                            />
-                        ))}
-                    </div>
-                    <div className="flex justify-end">
-                        <LargeButton label="See All Products" state="primary" />
+                <div className="flex flex-col items-center pt-8">
+                    <div className="flex flex-col gap-y-5">
+                        <div className="flex justify-center gap-x-4">
+                            {CATEGORY_LINKS.map((category) => (
+                                <Link
+                                    href={category.path}
+                                    key={category.category}
+                                >
+                                    <CategoryCard
+                                        category={category.category}
+                                        imageUrl={category.imageUrl}
+                                    />
+                                </Link>
+                            ))}
+                        </div>
+                        <div className="flex justify-end">
+                            <Link href="/products?filter=all">
+                                <LargeButton
+                                    label="See All Products"
+                                    state="primary"
+                                />
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </Container>

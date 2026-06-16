@@ -2,15 +2,7 @@ import { useFormContext } from "react-hook-form";
 import { FormField } from "../components/FormField";
 import { Input } from "../components/Input";
 import { ProductInput } from "../schemas/product";
-import { Category } from "@prisma/client";
-
-const categoryOptions: { label: string; value: Category | "" }[] = [
-    { label: "---", value: "" },
-    { label: "Cleanser", value: "cleanser" },
-    { label: "Toner", value: "toner" },
-    { label: "Serum", value: "serum" },
-    { label: "Cream", value: "cream" },
-];
+import { CATEGORY_OPTIONS } from "../common/consts";
 
 export const ProductForm = () => {
     const {
@@ -26,7 +18,7 @@ export const ProductForm = () => {
                         {...register("category")}
                         className="w-1/2 p-2 border-[#2D2D2D] border-1 rounded-lg"
                     >
-                        {categoryOptions.map((option) => (
+                        {CATEGORY_OPTIONS.map((option) => (
                             <option key={option.value} value={option.value}>
                                 {option.label}
                             </option>

@@ -12,6 +12,7 @@ import { useState } from "react";
 import { createProduct } from "@/app/actions/product";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { handleServerErrors } from "@/app/common/utils";
 
 export default function CreatePage() {
     const router = useRouter();
@@ -31,6 +32,7 @@ export default function CreatePage() {
     });
     const { handleSubmit, reset, setError } = methods;
 
+    /** [Add Product]ボタン押下時処理 */
     const onSubmit = async (data: ProductInput) => {
         setIsSubmitting(true);
         setSubmitMessage("");
@@ -50,15 +52,7 @@ export default function CreatePage() {
             toast.success("Successfully created!");
             router.push("/products");
         } else if (result.errors) {
-            Object.entries(result.errors).forEach(([key, value]) => {
-                const messages = value as string[] | undefined;
-                if (Array.isArray(messages) && messages[0]) {
-                    setError(key as keyof ProductInput, {
-                        type: "server",
-                        message: messages[0],
-                    });
-                }
-            });
+            handleServerErrors(result.errors.fieldErrors, setError);
         } else {
             setSubmitMessage("Server error.");
         }

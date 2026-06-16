@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "../lib/prisma";
 import { productSchema, updateProductSchema } from "../schemas/product";
 import { success, z } from "zod";
+import { Category } from "@prisma/client";
 
 /**
  * 新規作成
@@ -128,9 +129,18 @@ export async function deleteProduct(id: string) {
 /**
  * 一覧取得
  */
-export async function fetchProducts() {
+export async function fetchProducts({ filter }: { filter?: string }) {
     try {
+        const whereClause: any = {};
+
+        if (filter === "new") {
+            whereClause.isNew = true;
+        } else if (filter && filter !== "all") {
+            whereClause.category = filter as Category;
+        }
+
         const products = await prisma.product.findMany({
+            where: whereClause,
             orderBy: {
                 createdAt: "desc",
             },

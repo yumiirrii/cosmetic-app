@@ -13,9 +13,10 @@ import { ProductForm } from "../../ProductForm";
 import { Header } from "@/app/components/Header";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { updateProduct } from "@/app/actions/product";
+import { deleteProduct, updateProduct } from "@/app/actions/product";
 import { Product } from "@prisma/client";
 import { toast } from "sonner";
+import { handleServerErrors } from "@/app/common/utils";
 
 type Props = {
     id: string;
@@ -53,15 +54,24 @@ export const EditFormClient = ({ id, initialData }: Props) => {
             toast.success("Successfully updated!");
             router.push("/products");
         } else if (result.errors) {
-            Object.entries(result.errors).forEach(([key, value]) => {
-                const messages = value as string[] | undefined;
-                if (Array.isArray(messages) && messages[0]) {
-                    setError(key as keyof UpdateProductInput, {
-                        type: "server",
-                        message: messages[0],
-                    });
-                }
-            });
+            handleServerErrors(result.errors.fieldErrors, setError);
+        } else {
+            setSubmitMessage("Server error.");
+        }
+    };
+
+    /** [Delete Product]ボタン押下時処理 */
+    const removeProduct = async () => {
+        setIsSubmitting(true);
+        setSubmitMessage("");
+
+        const result = await deleteProduct(id);
+
+        setIsSubmitting(false);
+
+        if (result.success) {
+            toast.success("Successfully deleted!");
+            router.push("/products");
         } else {
             setSubmitMessage("Server error.");
         }
@@ -94,7 +104,13 @@ export const EditFormClient = ({ id, initialData }: Props) => {
                                         disabled={isSubmitting}
                                     />
                                 </div>
-                                <Button label="Delete Product" state="delete" />
+                                <Button
+                                    type="button"
+                                    label="Delete Product"
+                                    state="delete"
+                                    onClick={removeProduct}
+                                    disabled={isSubmitting}
+                                />
                             </div>
                             {submitMessage && (
                                 <p className="text-sm text-red-600">

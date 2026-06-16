@@ -1,10 +1,13 @@
+import Link from "next/link";
+import { FILTER_OPTIONS } from "../common/consts";
+
 type Props = {
     title: string;
-    categories?: string[];
     textWhite?: boolean;
+    hasFilter?: boolean;
 };
 
-export const PageHeader = ({ title, categories, textWhite }: Props) => {
+export const PageHeader = ({ title, textWhite, hasFilter }: Props) => {
     return (
         <div className="flex flex-col items-center py-12 gap-y-7">
             <p
@@ -12,14 +15,16 @@ export const PageHeader = ({ title, categories, textWhite }: Props) => {
             >
                 {title}
             </p>
-            {categories && categories.length > 0 && (
+            {hasFilter && (
                 <ul className="flex gap-x-14 text-sm font-medium cursor-pointer">
-                    {categories.map((category) => (
+                    {FILTER_OPTIONS.map((option) => (
                         <li
-                            key={category}
+                            key={option.value}
                             className="px-2 py-1 hover:text-[#88F5FA] transition-colors"
                         >
-                            {category}
+                            <Link href={`/products?filter=${option.value}`}>
+                                {option.label}
+                            </Link>
                         </li>
                     ))}
                 </ul>
