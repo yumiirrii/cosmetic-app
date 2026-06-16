@@ -2,14 +2,11 @@
 
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-    UpdateProductInput,
-    updateProductSchema,
-} from "../../../schemas/product";
-import { Container } from "@/app/components/Container";
+import { UpdateProductInput, updateProductSchema } from "../schemas/product";
+import { Container } from "@/app/components/ui/Container";
 import { PageHeader } from "@/app/components/PageHeader";
-import { Button } from "@/app/components/Button";
-import { ProductForm } from "../../ProductForm";
+import { Button } from "@/app/components/ui/Button";
+import { ProductForm } from "./ProductForm";
 import { Header } from "@/app/components/Header";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

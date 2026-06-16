@@ -3,10 +3,10 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ProductInput, productSchema } from "../../schemas/product";
-import { ProductForm } from "../ProductForm";
-import { Container } from "@/app/components/Container";
+import { ProductForm } from "../../components/ProductForm";
+import { Container } from "@/app/components/ui/Container";
 import { PageHeader } from "@/app/components/PageHeader";
-import { Button } from "@/app/components/Button";
+import { Button } from "@/app/components/ui/Button";
 import { Header } from "@/app/components/Header";
 import { useState } from "react";
 import { createProduct } from "@/app/actions/product";

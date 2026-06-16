@@ -1,12 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { NAV_LINKS } from "../common/consts";
+import { usePathname } from "next/navigation";
 
 export const Header = ({ textWhite = false }: { textWhite?: boolean }) => {
-    const navLinks = [
-        { page: "Home", path: "/" },
-        { page: "Products", path: "/products" },
-        { page: "Favorites", path: "/" },
-        { page: "Post", path: "/post/create" },
-    ];
+    const pathname = usePathname();
 
     return (
         <header
@@ -17,16 +16,20 @@ export const Header = ({ textWhite = false }: { textWhite?: boolean }) => {
             </div>
             <nav>
                 <ul className="flex gap-x-16 font-semibold text-sm">
-                    {navLinks.map((link) => (
-                        <li key={link.page}>
-                            <Link
-                                href={link.path}
-                                className="px-2 py-1 hover:text-[#88F5FA] transition-colors"
+                    {NAV_LINKS.map((link) => {
+                        return (
+                            <li
+                                key={link.page}
+                                className="relative px-2 pt-1 pb-1.5 hover:text-[#88F5FA] transition-colors"
                             >
-                                {link.page}
-                            </Link>
-                        </li>
-                    ))}
+                                <Link href={link.path}>{link.page}</Link>
+
+                                {pathname === link.path && (
+                                    <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#88F5FA] rounded-full" />
+                                )}
+                            </li>
+                        );
+                    })}
                 </ul>
             </nav>
         </header>

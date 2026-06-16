@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button } from "./Button";
+import { Button } from "./ui/Button";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { checkValidImageUrl, formattedPrice } from "@/app/common/utils";
 import { Product } from "@prisma/client";

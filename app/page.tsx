@@ -1,15 +1,15 @@
 import Image from "next/image";
-import { Container } from "./components/Container";
+import { Container } from "./components/ui/Container";
 import { Header } from "./components/Header";
-import { LargeButton } from "./components/LargeButton";
-import { CategoryCard } from "./components/CategoryCard";
+import { LargeButton } from "./components/ui/LargeButton";
+import { CategoryCard } from "./components/ui/CategoryCard";
 import { CATEGORY_LINKS } from "./common/consts";
 import Link from "next/link";
 
 export default function Home() {
     return (
         <div
-            className="min-h-screen overflow-x-auto bg-cover bg-center"
+            className="min-h-screen bg-cover bg-center overflow-x-auto w-full"
             style={{ backgroundImage: "url('/hero-bg.png')" }}
         >
             <div className="flex flex-col">
@@ -17,7 +17,7 @@ export default function Home() {
 
                 {/* Hero */}
                 <div className="flex items-center">
-                    <div className="flex-1 min-w-sm">
+                    <div className="flex-1 min-w-md">
                         <Image
                             src="/hero-product.png"
                             width={571}
@@ -38,50 +38,50 @@ export default function Home() {
                                 <LargeButton
                                     label="Go to Product Detail"
                                     state="primary"
+                                    className="text-nowrap"
                                 />
                             </Link>
                             <Link href="/products?filter=new">
                                 <LargeButton
                                     label="See All New Products"
                                     state="secondary"
+                                    className="text-nowrap"
                                 />
                             </Link>
                         </div>
                     </div>
                 </div>
-                <div className="flex justify-center bg-white/10">
-                    <p className="font-gothic text-9xl text-transparent [-webkit-text-stroke:1px_#FFFFFF] [text-shadow:0px_8px_16px_rgba(0,0,0,0.2)]">
+                <div className="mx-auto">
+                    <p className="font-gothic text-9xl text-center text-transparent [-webkit-text-stroke:1px_#FFFFFF] [text-shadow:0px_8px_16px_rgba(0,0,0,0.2)]">
                         METAMORF
                     </p>
-                </div>
-            </div>
-            <Container>
-                <div className="flex flex-col items-center pt-8">
-                    <div className="flex flex-col gap-y-5">
-                        <div className="flex justify-center gap-x-4">
-                            {CATEGORY_LINKS.map((category) => (
-                                <Link
-                                    href={category.path}
-                                    key={category.category}
-                                >
-                                    <CategoryCard
-                                        category={category.category}
-                                        imageUrl={category.imageUrl}
+                    <div className="flex flex-col pt-8 pb-16 px-18">
+                        <div className="flex flex-col gap-y-5">
+                            <div className="flex gap-x-4">
+                                {CATEGORY_LINKS.map((category) => (
+                                    <Link
+                                        href={category.path}
+                                        key={category.category}
+                                    >
+                                        <CategoryCard
+                                            category={category.category}
+                                            imageUrl={category.imageUrl}
+                                        />
+                                    </Link>
+                                ))}
+                            </div>
+                            <div className="flex justify-end">
+                                <Link href="/products?filter=all">
+                                    <LargeButton
+                                        label="See All Products"
+                                        state="primary"
                                     />
                                 </Link>
-                            ))}
-                        </div>
-                        <div className="flex justify-end">
-                            <Link href="/products?filter=all">
-                                <LargeButton
-                                    label="See All Products"
-                                    state="primary"
-                                />
-                            </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </Container>
+            </div>
         </div>
     );
 }

@@ -1,5 +1,13 @@
 import { Category } from "@prisma/client";
 
+/** ヘッダーナビゲーション用のページリンク */
+export const NAV_LINKS = [
+    { page: "Home", path: "/" },
+    { page: "Products", path: "/products" },
+    { page: "Favorites", path: "/" },
+    { page: "Post", path: "/post/create" },
+];
+
 /** ホーム画面用のカテゴリリンク */
 export const CATEGORY_LINKS: {
     category: string;

@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
-import { FormField } from "../components/FormField";
-import { Input } from "../components/Input";
+import { FormField } from "./ui/FormField";
+import { Input } from "./ui/Input";
 import { ProductInput } from "../schemas/product";
 import { CATEGORY_OPTIONS } from "../common/consts";
 

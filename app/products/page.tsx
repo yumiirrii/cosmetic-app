@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ProductCard } from "../components/ProductCard";
-import { Container } from "../components/Container";
+import { Container } from "../components/ui/Container";
 import { Header } from "../components/Header";
 import { PageHeader } from "../components/PageHeader";
 import { ProductDetailModal } from "../components/ProductDetailModal";
@@ -12,9 +12,9 @@ import { ProductListItem } from "../schemas/product";
 import { useSearchParams } from "next/navigation";
 
 export default function Products() {
-    const params = useSearchParams();
-    const currentFilter = params.get("filter") || "all";
-    const productId = params.get("productId");
+    const searchParams = useSearchParams();
+    const currentFilter = searchParams.get("filter") || "all";
+    const productId = searchParams.get("productId");
     const [products, setProducts] = useState<ProductListItem[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     // 詳細モーダル

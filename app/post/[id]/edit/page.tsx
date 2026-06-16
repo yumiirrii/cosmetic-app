@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { fetchProductById } from "@/app/actions/product";
-import { EditFormClient } from "./EditFormClient";
+import { EditFormClient } from "../../../components/EditFormClient";
 
 export default async function EditPage({
     params,
