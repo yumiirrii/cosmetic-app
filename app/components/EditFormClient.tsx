@@ -91,7 +91,7 @@ export const EditFormClient = ({ id, initialData }: Props) => {
                                     <Button
                                         type="button"
                                         label="Clear"
-                                        state="secondary"
+                                        state="tertiary"
                                         onClick={() => reset()}
                                     />
                                     <Button

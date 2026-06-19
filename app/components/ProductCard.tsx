@@ -33,11 +33,15 @@ export const ProductCard = ({
                 <button
                     className="group cursor-pointer"
                     onClick={(e) => {
-                        e.stopPropagation();
+                        e.stopPropagation(); // モーダルが開くのを防ぐ
                         toggleFav();
                     }}
                 >
-                    <HeartOutline className="w-6 h-6 stroke-1 fill-transparent group-hover:fill-black transition-all" />
+                    {isInFav ? (
+                        <HeartSolid className="w-6 h-6 fill-black transition-all" />
+                    ) : (
+                        <HeartOutline className="w-6 h-6 stroke-1 fill-transparent group-hover:fill-black transition-all" />
+                    )}
                 </button>
             </div>
             <Image

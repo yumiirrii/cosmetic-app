@@ -7,10 +7,17 @@ import Link from "next/link";
 
 type Props = {
     product: Product;
+    isInFav: boolean;
+    toggleFav: () => void;
     closeModal: () => void;
 };
 
-export const ProductDetailModal = ({ product, closeModal }: Props) => {
+export const ProductDetailModal = ({
+    product,
+    isInFav,
+    toggleFav,
+    closeModal,
+}: Props) => {
     const displayImageUrl = checkValidImageUrl(product.imageUrl);
 
     return (
@@ -33,7 +40,7 @@ export const ProductDetailModal = ({ product, closeModal }: Props) => {
                         height={320}
                     />
                 </div>
-                {/* 詳細説明 */}
+                {/* 詳細 */}
                 <div className="w-sm flex flex-col gap-y-8 py-12 pr-20  max-h-[85vh] overflow-y-auto">
                     <div className="w-full h-fit flex flex-col gap-y-5 text-white">
                         <div className="h-fit flex flex-col gap-y-2">
@@ -51,14 +58,24 @@ export const ProductDetailModal = ({ product, closeModal }: Props) => {
                         </div>
                     </div>
                     <div className="flex flex-col gap-y-3 items-start">
-                        <Button
-                            label="Add to Favorites"
-                            state="primary"
-                            showHeart
-                            onClick={closeModal}
-                        />
+                        {isInFav ? (
+                            <Button
+                                label="Remove from Favorites"
+                                state="secondary"
+                                showHeart
+                                onClick={toggleFav}
+                            />
+                        ) : (
+                            <Button
+                                label="Add to Favorites"
+                                state="primary"
+                                showHeart
+                                onClick={toggleFav}
+                            />
+                        )}
+
                         <Link href={`/post/${product.id}/edit`}>
-                            <Button label="Edit Product" state="secondary" />
+                            <Button label="Edit Product" state="tertiary" />
                         </Link>
                     </div>
                 </div>

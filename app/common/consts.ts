@@ -4,9 +4,9 @@ import { Category } from "@prisma/client";
 export const NAV_LINKS = [
     { page: "Home", path: "/" },
     { page: "Products", path: "/products" },
-    { page: "Favorites", path: "/" },
+    { page: "Favorites", path: "/favorites" },
     { page: "Post", path: "/post/create" },
-];
+] as const;
 
 /** ホーム画面用のカテゴリリンク */
 export const CATEGORY_LINKS: {
@@ -34,7 +34,7 @@ export const CATEGORY_LINKS: {
         imageUrl: "/cat-cream.png",
         path: "/products?filter=cream",
     },
-];
+] as const;
 
 /** フォーム用のカテゴリオプション */
 export const CATEGORY_OPTIONS: { label: string; value: Category | "" }[] = [

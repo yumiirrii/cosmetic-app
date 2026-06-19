@@ -75,7 +75,7 @@ export default function CreatePage() {
                                     <Button
                                         type="button"
                                         label="Clear"
-                                        state="secondary"
+                                        state="tertiary"
                                         onClick={() => reset()}
                                     />
                                     <Button

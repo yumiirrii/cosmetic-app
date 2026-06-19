@@ -10,6 +10,7 @@ import { Product } from "@prisma/client";
 import { fetchProductById, fetchProducts } from "../actions/product";
 import { ProductListItem } from "../schemas/product";
 import { useSearchParams } from "next/navigation";
+import { updateLocalStorageFav } from "../common/utils";
 
 export default function Products() {
     const searchParams = useSearchParams();
@@ -66,11 +67,25 @@ export default function Products() {
         loadProducts();
     }, [currentFilter]);
 
-    const toggleFav = () => {
-        return;
+    /** ハートアイコン(お気に入り)押下時処理 */
+    const toggleFav = (id: string) => {
+        // ローカルストレージ更新
+        updateLocalStorageFav(id);
+
+        // 画面に即時反映
+        setProducts((prevProducts) =>
+            prevProducts.map((product) =>
+                product.id === id
+                    ? {
+                          ...product,
+                          isInFav: !product.isInFav,
+                      }
+                    : product,
+            ),
+        );
     };
 
-    /** 商品詳細モーダルオープン処理　*/
+    /** 商品詳細モーダルオープン処理 　*/
     const openModal = async (id: string) => {
         try {
             const result = await fetchProductById(id);
@@ -97,26 +112,41 @@ export default function Products() {
             <Header />
             <Container>
                 <PageHeader title="Products" hasFilter />
-                <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,270px))] gap-4 w-full">
-                    {products.map((product, index) => (
-                        <ProductCard
-                            key={product.id}
-                            name={product.name}
-                            price={product.price}
-                            imageUrl={product.imageUrl}
-                            isInFav={product.isInFav}
-                            priority={index < 4}
-                            toggleFav={toggleFav}
-                            openModal={() => {
-                                openModal(product.id);
-                            }}
-                        />
-                    ))}
-                </div>
+
+                {isLoading ? (
+                    <div className="flex justify-center items-center h-64 text-gray-400">
+                        Loading...
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,270px))] gap-4 w-full">
+                        {products.map((product, index) => (
+                            <ProductCard
+                                key={product.id}
+                                name={product.name}
+                                price={product.price}
+                                imageUrl={product.imageUrl}
+                                isInFav={product.isInFav}
+                                priority={index < 4}
+                                toggleFav={() => toggleFav(product.id)}
+                                openModal={() => {
+                                    openModal(product.id);
+                                }}
+                            />
+                        ))}
+                    </div>
+                )}
             </Container>
 
             {isOpen && product && (
-                <ProductDetailModal product={product} closeModal={closeModal} />
+                <ProductDetailModal
+                    product={product}
+                    isInFav={
+                        products.find((p) => p.id === product.id)?.isInFav ||
+                        false
+                    }
+                    toggleFav={() => toggleFav(product.id)}
+                    closeModal={closeModal}
+                />
             )}
         </div>
     );
