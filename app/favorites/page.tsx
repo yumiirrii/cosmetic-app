@@ -94,7 +94,7 @@ export default function Favorites() {
     };
 
     return (
-        <div className="relative flex flex-col min-h-screen bg-[#F7F9F8]">
+        <div className="relative flex flex-col min-h-screen bg-[#F7F9F8] overflow-x-auto min-w-[375px]">
             <Header />
             <Container>
                 <PageHeader title="Favorites" />
@@ -104,7 +104,7 @@ export default function Favorites() {
                         Loading...
                     </div>
                 ) : (
-                    <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,270px))] gap-4 w-full">
+                    <div className="grid grid-cols-2 md:grid-cols-[repeat(auto-fill,minmax(220px,270px))] gap-4 w-full">
                         {products.map((product, index) => (
                             <ProductCard
                                 key={product.id}

@@ -119,7 +119,6 @@ export default function Products() {
                     </div>
                 ) : (
                     <div className="grid grid-cols-2 md:grid-cols-[repeat(auto-fill,minmax(220px,270px))] gap-4 w-full">
-                        {/* <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full"> */}
                         {products.map((product, index) => (
                             <ProductCard
                                 key={product.id}
