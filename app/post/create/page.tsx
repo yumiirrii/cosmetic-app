@@ -60,10 +60,10 @@ export default function CreatePage() {
 
     return (
         <FormProvider {...methods}>
-            <div className="min-h-screen bg-[#2C2C2C] flex flex-col gap-y-8">
+            <div className="min-h-screen bg-[#2C2C2C] flex flex-col gap-y-4 md:gap-y-8 min-w-[375px]">
                 <Header textWhite />
                 <Container>
-                    <div className="w-2xl mx-auto px-30 pb-12 bg-black/80 shadow- rounded-lg">
+                    <div className="w-full md:max-w-2xl mx-auto px-8 md:px-30 pb-12 bg-black/80 shadow-lg rounded-lg">
                         <PageHeader title="Post" textWhite />
                         <form
                             onSubmit={handleSubmit(onSubmit)}

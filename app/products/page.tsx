@@ -108,7 +108,7 @@ export default function Products() {
     };
 
     return (
-        <div className="relative flex flex-col min-h-screen bg-[#F7F9F8] overflow-x-auto">
+        <div className="relative flex flex-col min-h-screen bg-[#F7F9F8] overflow-x-auto min-w-[375px]">
             <Header />
             <Container>
                 <PageHeader title="Products" hasFilter />

@@ -52,8 +52,8 @@ export const ProductCard = ({
                 priority={priority}
             />
             <div className="flex flex-col justify-end gap-y-1 px-4 w-full h-full">
-                <p className="font-medium">{name}</p>
-                <p className="text-sm">{formattedPrice(price)}</p>
+                <p className="font-medium text-sm md:text-base">{name}</p>
+                <p className="text-xs md:text-sm">{formattedPrice(price)}</p>
             </div>
         </div>
     );
