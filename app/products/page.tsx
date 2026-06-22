@@ -108,7 +108,7 @@ export default function Products() {
     };
 
     return (
-        <div className="relative flex flex-col min-h-screen bg-[#F7F9F8]">
+        <div className="relative flex flex-col min-h-screen bg-[#F7F9F8] overflow-x-auto">
             <Header />
             <Container>
                 <PageHeader title="Products" hasFilter />
@@ -118,7 +118,8 @@ export default function Products() {
                         Loading...
                     </div>
                 ) : (
-                    <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,270px))] gap-4 w-full">
+                    <div className="grid grid-cols-2 md:grid-cols-[repeat(auto-fill,minmax(220px,270px))] gap-4 w-full">
+                        {/* <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full"> */}
                         {products.map((product, index) => (
                             <ProductCard
                                 key={product.id}

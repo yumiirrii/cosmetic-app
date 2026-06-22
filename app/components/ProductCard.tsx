@@ -27,7 +27,7 @@ export const ProductCard = ({
     return (
         <div
             onClick={openModal}
-            className="flex flex-col items-center w-full min-w-[220px] max-w-[270px] h-[340px] bg-white px-5 pt-4 pb-7 rounded-lg cursor-pointer hover:bg-[#F0FEFF] transition-colors"
+            className="flex flex-col items-center w-full h-full md:min-w-[220px] md:max-w-[270px] md:h-[340px] bg-white px-5 pt-4 pb-7 rounded-lg cursor-pointer hover:bg-[#F0FEFF] transition-colors"
         >
             <div className="flex flex-row w-full justify-end">
                 <button

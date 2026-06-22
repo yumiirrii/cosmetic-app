@@ -7,7 +7,7 @@ type Props = {
 
 export const CategoryCard = ({ category, imageUrl }: Props) => {
     return (
-        <div className="flex flex-col items-center justify-between min-w-[200px] max-w-[270px] min-h-[198px] max-h-[268px] bg-white px-12 py-6 rounded-lg">
+        <div className="flex flex-col items-center justify-between w-[160px] md:w-[200px] lg:w-[270px] h-fit bg-white px-12 py-6 rounded-lg">
             <Image
                 src={imageUrl}
                 alt="category image"
