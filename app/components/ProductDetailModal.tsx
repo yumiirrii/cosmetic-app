@@ -32,7 +32,7 @@ export const ProductDetailModal = ({
                     <XMarkIcon className=" w-8 h-8 stroke-1" />
                 </button>
                 {/* 商品画像 */}
-                <div className="shrink-0">
+                <div className="shrink-0 pt-20 md:pt-0">
                     <Image
                         src={displayImageUrl}
                         alt="product image"

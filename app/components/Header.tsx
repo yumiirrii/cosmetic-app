@@ -16,7 +16,7 @@ export const Header = ({ textWhite = false }: { textWhite?: boolean }) => {
 
     return (
         <header
-            className={`relative flex items-center justify-between md:gap-x-20 h-[80px] px-4 md:px-18 ${textWhite ? "text-white" : "text-black"}`}
+            className={`relative flex items-center justify-between md:justify-start md:gap-x-40 h-[80px] px-4 md:px-18 ${textWhite ? "text-white" : "text-black"}`}
         >
             <div className="font-gothic text-2xl px-2 py-1 hover:text-[#88F5FA] transition-colors">
                 <Link href="/">METAMORF</Link>
