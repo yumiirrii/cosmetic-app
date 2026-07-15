@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { ProductCard } from "../components/ProductCard";
 import { Container } from "../components/ui/Container";
 import { Header } from "../components/Header";
@@ -12,7 +12,7 @@ import { ProductListItem } from "../schemas/product";
 import { useSearchParams } from "next/navigation";
 import { updateLocalStorageFav } from "../common/utils";
 
-export default function Products() {
+function ProductsContent() {
     const searchParams = useSearchParams();
     const currentFilter = searchParams.get("filter") || "all";
     const productId = searchParams.get("productId");
@@ -149,5 +149,13 @@ export default function Products() {
                 />
             )}
         </div>
+    );
+}
+
+export default function ProductsPage() {
+    return (
+        <Suspense fallback={null}>
+            <ProductsContent />
+        </Suspense>
     );
 }
