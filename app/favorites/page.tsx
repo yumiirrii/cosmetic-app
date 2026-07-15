@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { ProductCard } from "../components/ProductCard";
 import { Container } from "../components/ui/Container";
 import { Header } from "../components/Header";
@@ -11,7 +11,7 @@ import { fetchProductById, fetchProducts } from "../actions/product";
 import { ProductListItem } from "../schemas/product";
 import { updateLocalStorageFav } from "../common/utils";
 
-export default function Favorites() {
+function FavoritesContent() {
     const [products, setProducts] = useState<ProductListItem[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     // 詳細モーダル
@@ -135,5 +135,13 @@ export default function Favorites() {
                 />
             )}
         </div>
+    );
+}
+
+export default function FavoritesPage() {
+    return (
+        <Suspense fallback={null}>
+            <FavoritesContent />
+        </Suspense>
     );
 }
