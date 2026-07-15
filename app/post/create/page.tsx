@@ -8,13 +8,13 @@ import { Container } from "@/app/components/ui/Container";
 import { PageHeader } from "@/app/components/PageHeader";
 import { Button } from "@/app/components/ui/Button";
 import { Header } from "@/app/components/Header";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { createProduct } from "@/app/actions/product";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { handleServerErrors } from "@/app/common/utils";
 
-export default function CreatePage() {
+function CreateContent() {
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const [submitMessage, setSubmitMessage] = useState<string>("");
@@ -96,5 +96,13 @@ export default function CreatePage() {
                 </Container>
             </div>
         </FormProvider>
+    );
+}
+
+export default function CreatePage() {
+    return (
+        <Suspense fallback={null}>
+            <CreateContent />
+        </Suspense>
     );
 }
