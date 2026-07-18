@@ -15,15 +15,13 @@ export default function Home() {
                 <Header />
 
                 {/* Hero */}
-                {/* <div className="flex flex-col md:flex-row items-center md:px-18 lg:px-33 gap-y-4 md:gap-x-10"> */}
-                <div className="flex flex-col md:flex-row items-center md:px-18 lg:px-40 gap-y-4 md:gap-x-10 lg:gap-x-25 md:pt-10 md:pb-4 lg:pt-20 lg:pb-10">
+                <div className="flex flex-col md:flex-row items-center md:px-18 lg:px-32 gap-y-4 md:gap-x-10 lg:gap-x-25 md:pt-10 md:pb-4 lg:pb-10 mx-auto max-w-[1600px]">
                     <Image
                         src="/hero-product.png"
-                        width={422}
-                        height={510}
+                        width={540}
+                        height={652}
                         alt="hero product image"
-                        // className="w-1/2 md:min-w-sm md:max-w-[480px] h-auto"
-                        className="w-1/2 md:min-w-sm md:max-w-[440px] h-auto"
+                        className="max-md:w-1/2 flex-1 md:min-w-sm md:max-w-[440px] xl:max-w-[480px] h-auto"
                         priority
                     />
                     <div className="flex flex-col items-center gap-y-8 lg:gap-y-12">
@@ -60,13 +58,13 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="mx-auto pt-8 md:pt-0">
-                    {/* <p className="font-gothic text-5xl md:text-9xl text-center text-transparent [-webkit-text-stroke:1px_#FFFFFF] [text-shadow:0px_8px_16px_rgba(0,0,0,0.2)]"> */}
                     <p className="font-gothic text-5xl md:text-9xl lg:text-[186px] text-center text-transparent [text-shadow:0px_8px_8px_rgba(0,0,0,0.2)] md:[text-shadow:0px_8px_16px_rgba(0,0,0,0.2)]">
                         METAMORF
                     </p>
-                    <div className="flex flex-col pt-8 pb-16 px-8 md:px-18">
+                    {/* カテゴリ一覧 */}
+                    <div className="w-full flex flex-col pt-8 pb-16 px-8 md:px-18">
                         <div className="flex flex-col gap-y-5">
-                            <div className="flex flex-wrap justify-center md:flex-nowrap lg:justify-between gap-x-4 gap-y-4">
+                            <div className="grid grid-cols-2 gap-4 md:flex md:flex-nowrap lg:justify-between">
                                 {CATEGORY_LINKS.map((category) => (
                                     <Link
                                         href={category.path}
