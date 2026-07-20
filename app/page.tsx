@@ -40,7 +40,7 @@ export default function Home() {
                             </p>
                         </div>
                         <div className="w-full flex flex-col md:flex-row items-center md:justify-center gap-y-3 md:gap-x-3 lg:gap-x-6">
-                            <Link href="/products?filter=new&productId=cmqg0mose0000tr3m7chk8ok0">
+                            <Link href="/products?filter=new&productId=cmrt27q100000c4soii7t4z42">
                                 <LargeButton
                                     label="Go to Product Detail"
                                     state="primary"
