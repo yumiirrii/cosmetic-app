@@ -4,6 +4,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { checkValidImageUrl, formattedPrice } from "@/app/common/utils";
 import { Product } from "@prisma/client";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 type Props = {
     product: Product;
@@ -19,6 +20,8 @@ export const ProductDetailModal = ({
     closeModal,
 }: Props) => {
     const displayImageUrl = checkValidImageUrl(product.imageUrl);
+    const searchParams = useSearchParams();
+    const currentFilter = searchParams.get("filter") || "all";
 
     return (
         <div className="fixed inset-0 z-50 flex justify-center items-center bg-black/70">
@@ -74,7 +77,9 @@ export const ProductDetailModal = ({
                             />
                         )}
 
-                        <Link href={`/post/${product.id}/edit`}>
+                        <Link
+                            href={`/post/${product.id}/edit?filter=${currentFilter}`}
+                        >
                             <Button label="Edit Product" state="tertiary" />
                         </Link>
                     </div>

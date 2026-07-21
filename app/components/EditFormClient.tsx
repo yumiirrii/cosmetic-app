@@ -14,13 +14,16 @@ import { deleteProduct, updateProduct } from "@/app/actions/product";
 import { Product } from "@prisma/client";
 import { toast } from "sonner";
 import { handleServerErrors } from "@/app/common/utils";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 type Props = {
     id: string;
     initialData: Product;
+    filter?: string;
 };
 
-export const EditFormClient = ({ id, initialData }: Props) => {
+export const EditFormClient = ({ id, initialData, filter }: Props) => {
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const [submitMessage, setSubmitMessage] = useState<string>("");
@@ -79,7 +82,21 @@ export const EditFormClient = ({ id, initialData }: Props) => {
             <div className="min-h-screen bg-[#2C2C2C] flex flex-col gap-y-4 md:gap-y-8 min-w-[375px]">
                 <Header textWhite />
                 <Container>
-                    <div className="w-full md:w-2xl mx-auto px-8 md:px-30 pb-12 bg-black/80 shadow- rounded-lg">
+                    <div className="relative w-full md:w-2xl mx-auto px-8 md:px-30 pb-12 bg-black/80 rounded-lg">
+                        {/* 編集の場合、閉じるボタン */}
+                        {id && (
+                            <Link
+                                href={`/products?filter=${filter}&productId=${id}`}
+                            >
+                                <button
+                                    type="button"
+                                    className="absolute top-5 right-5 p-2 text-white/70 hover:text-white transition-colors cursor-pointer z-10"
+                                >
+                                    <XMarkIcon className=" w-8 h-8 stroke-1" />
+                                </button>
+                            </Link>
+                        )}
+
                         <PageHeader title="Post" textWhite />
                         <form
                             onSubmit={handleSubmit(onSubmit)}
