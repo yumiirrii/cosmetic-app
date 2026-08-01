@@ -15,13 +15,13 @@ export default function Home() {
                 <Header />
 
                 {/* Hero */}
-                <div className="flex flex-col md:flex-row items-center md:px-18 lg:px-32 gap-y-4 md:gap-x-10 lg:gap-x-25 md:pt-10 md:pb-4 lg:pb-10 mx-auto max-w-[1600px]">
+                <div className="flex flex-col md:flex-row items-center md:px-14 lg:px-32 gap-y-4 md:gap-x-10 lg:gap-x-25 md:pt-10 md:pb-4 mx-auto max-w-[1600px]">
                     <Image
                         src="/hero-product.png"
                         width={540}
                         height={652}
                         alt="hero product image"
-                        className="max-md:w-1/2 flex-1 md:min-w-sm md:max-w-[440px] xl:max-w-[480px] h-auto"
+                        className="max-md:w-1/2 flex-1 md:min-w-sm md:max-w-[380px] lg:max-w-[440px] xl:max-w-[480px] h-auto"
                         priority
                     />
                     <div className="flex flex-col items-center gap-y-8 lg:gap-y-12">
