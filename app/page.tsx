@@ -42,14 +42,14 @@ export default function Home() {
                         <div className="w-full flex flex-col md:flex-row items-center md:justify-center gap-y-3 md:gap-x-3 lg:gap-x-6">
                             <Link href="/products?filter=new&productId=cmrt27q100000c4soii7t4z42">
                                 <LargeButton
-                                    label="Go to Product Detail"
+                                    label="Explore This Product"
                                     state="primary"
                                     className="text-nowrap"
                                 />
                             </Link>
                             <Link href="/products?filter=new">
                                 <LargeButton
-                                    label="See All New Products"
+                                    label="View All New Products"
                                     state="secondary"
                                     className="text-nowrap"
                                 />
@@ -80,7 +80,7 @@ export default function Home() {
                             <div className="flex justify-center md:justify-end">
                                 <Link href="/products?filter=all">
                                     <LargeButton
-                                        label="See All Products"
+                                        label="View All Products"
                                         state="primary"
                                     />
                                 </Link>
