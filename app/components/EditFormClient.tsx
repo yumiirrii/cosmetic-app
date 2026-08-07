@@ -16,6 +16,7 @@ import { toast } from "sonner";
 import { handleServerErrors } from "@/app/common/utils";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { featuredItemId } from "../common/consts";
 
 type Props = {
     id: string;
@@ -123,7 +124,9 @@ export const EditFormClient = ({ id, initialData, filter }: Props) => {
                                     label="Delete Product"
                                     state="delete"
                                     onClick={removeProduct}
-                                    disabled={isSubmitting}
+                                    disabled={
+                                        isSubmitting || id === featuredItemId
+                                    }
                                 />
                             </div>
                             {submitMessage && (

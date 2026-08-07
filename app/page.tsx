@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Header } from "./components/Header";
 import { LargeButton } from "./components/ui/LargeButton";
 import { CategoryCard } from "./components/ui/CategoryCard";
-import { CATEGORY_LINKS } from "./common/consts";
+import { CATEGORY_LINKS, featuredItemId } from "./common/consts";
 import Link from "next/link";
 
 export default function Home() {
@@ -40,7 +40,9 @@ export default function Home() {
                             </p>
                         </div>
                         <div className="w-full flex flex-col md:flex-row items-center md:justify-center gap-y-3 md:gap-x-3 lg:gap-x-6">
-                            <Link href="/products?filter=new&productId=cmrt27q100000c4soii7t4z42">
+                            <Link
+                                href={`/products?filter=new&productId=${featuredItemId}`}
+                            >
                                 <LargeButton
                                     label="Explore This Product"
                                     state="primary"

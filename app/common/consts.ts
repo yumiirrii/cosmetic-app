@@ -54,3 +54,5 @@ export const FILTER_OPTIONS: { label: string; value: string }[] = [
     { label: "Serum", value: "serum" },
     { label: "Cream", value: "cream" },
 ] as const;
+
+export const featuredItemId = "cmrt27q100000c4soii7t4z42";
